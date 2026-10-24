@@ -6,6 +6,7 @@ agent harnesses where they provide a strong foundation.
 ## Research and architecture
 
 - [Agent OS landscape and recommended architecture](docs/research/agent-os-landscape.md)
+- [Agent OS reference architecture and component model](docs/research/agent-os-reference-architecture.md)
 
 ## Contributing
 
