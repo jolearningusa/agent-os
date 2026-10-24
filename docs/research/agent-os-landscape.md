@@ -232,6 +232,10 @@ without changing agent behavior.
 
 ## Proposed architecture
 
+The detailed component boundaries, state models, and deployment topology are
+defined in the
+[Agent OS reference architecture](agent-os-reference-architecture.md).
+
 ```text
 Clients and channels
         |
