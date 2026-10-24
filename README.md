@@ -1,2 +1,13 @@
-# agent-os
-build/deploy our own agentOs to cloud, using/adapting open-source harness if possible
+# Agent OS
+
+Build and deploy a customizable agent operating system, adapting open-source
+agent harnesses where they provide a strong foundation.
+
+## Research and architecture
+
+- [Agent OS landscape and recommended architecture](docs/research/agent-os-landscape.md)
+
+## Contributing
+
+- [Trunk-based development workflow](docs/development-workflow.md)
+- [Repository instructions for coding agents](AGENTS.md)
