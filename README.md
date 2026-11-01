@@ -7,6 +7,7 @@ agent harnesses where they provide a strong foundation.
 
 - [Agent OS landscape and recommended architecture](docs/research/agent-os-landscape.md)
 - [Agent OS reference architecture and component model](docs/research/agent-os-reference-architecture.md)
+- [资源感知 Harness：三个产品方案（中文，待评审）](docs/research/resource-aware-harness-options.zh-CN.md)
 
 ## Contributing
 

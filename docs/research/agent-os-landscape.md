@@ -2,6 +2,11 @@
 
 _Research snapshot: October 23, 2026_
 
+Related proposal: [资源感知 Harness：三个产品方案（中文）](resource-aware-harness-options.zh-CN.md)
+compares budget-aware workflows, context optimization, and local/cloud
+deployment. It is a November 1, 2026 proposal for review, not a replacement
+for the architecture recommendations below.
+
 ## Executive recommendation
 
 Start with **OpenClaw as the control plane and product shell**, but keep the
