@@ -16,9 +16,10 @@
 合格任务。主要指标是每个合格任务的总成本，而不是单纯减少 Token。
 
 本文结合 [landscape 研究](agent-os-landscape.md) 和
-[参考架构](agent-os-reference-architecture.md)。沿用 OpenClaw 作为初始控制面
-和产品入口的既有建议，Hermes 作为记忆与技能生命周期参考，RRSI 仅用于离线
-优化。Deep Agents 等作为运行时适配器的实验候选，不在本文中直接替换既有选择。
+[参考架构](agent-os-reference-architecture.md)，保留早期产品比较。医疗实验的
+入口以医疗开发设计为准：自建可信后端 Harness。下文的 OpenClaw 入口是当时的
+比较方案，只作为通用平台对照，不覆盖医疗设计。Hermes 仍只作记忆与技能生命周期
+参考，RRSI 仅用于离线优化。Deep Agents 等作为运行时适配器的实验候选。
 实施前需通过 ADR 确认运行时、语言、存储、部署和客户隔离方案。
 
 以下市场判断和技术组合属于待验证假设；没有运行成本基准，也不承诺节省比例。

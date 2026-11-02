@@ -8,13 +8,16 @@ deployment. It is a November 1, 2026 proposal for review, not a replacement
 for the architecture recommendations below.
 
 The [medical-agent development proposal](../design/medical-agent.zh-CN.md)
-uses a project-owned harness for the synthetic medical experiment. Once
-accepted, that scoped design supersedes the initial shell recommendation for
-that experiment; the privacy and authorization boundaries still apply.
+uses a project-owned harness for the synthetic medical experiment. That is the
+working architecture for the experiment. OpenClaw remains a comparison point
+for general platform research, not a required entry for the medical work.
+Formal acceptance of the medical design is still tracked separately. The
+privacy and authorization boundaries in this document still apply.
 
 ## Executive recommendation
 
-Start with **OpenClaw as the control plane and product shell**, but keep the
+For general platform research, start with **OpenClaw as the control plane and
+product shell**. The medical experiment does not use that shell. Keep the
 parts that differentiate this Agent OS behind project-owned interfaces:
 
 - privacy gateway and token vault;
