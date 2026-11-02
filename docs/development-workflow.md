@@ -27,29 +27,20 @@ alternative source of truth.
    - `refactor/*` for behavior-preserving structural work;
    - `test/*` for test-only work;
    - `docs/*` for documentation-only work;
-   - `chore/*` for maintenance and dependency work;
-   - `course/*` or `content/*` when the task specifically delivers courses or
-     teaching materials. An explicitly assigned session branch takes priority.
+   - `chore/*` for maintenance and dependency work.
 3. Keep the branch small enough to merge within one or two working days when
    practical.
 4. Use feature flags, additive APIs, and compatible migrations to split large
    capabilities into releasable slices.
 5. Run all relevant local checks and inspect the resulting diff.
-6. Immediately before each push, inspect the branch PR state. If merged,
-   never reuse that branch: fetch and fast-forward clean local `main`, then
-   create a fresh short-lived branch for remaining work. Otherwise fetch and
-   rebase onto latest `origin/main` and rerun affected checks.
+6. Rebase onto the latest `origin/main` and rerun affected checks.
 7. Push the topic branch and open a Draft PR against `main`.
-8. Apply content-based labels and complete `.github/pull_request_template.md`,
-   including dated Prompt history and the instructions followed.
+8. Apply content-based labels and complete the PR description.
 9. Fix CI and review findings on the same branch. Do not open replacement PRs
    to bypass failing checks or unresolved review.
 10. When CI is green and review is complete, mark the PR ready and squash-merge
     it with explicit authorization.
-11. Confirm the merge before deleting branches. Let GitHub auto-delete the
-    remote head when configured; otherwise delete it only after confirmation.
-    Fetch and fast-forward local `main`, then delete the local topic branch.
-    Only then start the next task.
+11. Delete the merged branch and fast-forward local `main`.
 
 Never commit feature work directly on `main`. Urgent fixes still use a short
 `hotfix/*` branch and the same PR and CI path. Do not force-push `main` or
@@ -70,10 +61,6 @@ When a request contains multiple dependent tasks:
 
 Independent work may proceed in parallel only when explicitly requested and
 when the branches do not share an unstable contract or migration sequence.
-
-Each concurrent session owns its files. Do not edit files owned by another
-open PR. If overlap cannot be avoided, wait for that PR to merge and rebase.
-Never stack dependent PRs on unmerged branches.
 
 ## Design before implementation
 
@@ -147,10 +134,7 @@ Every PR description should include:
 - persistent-data or migration impact;
 - tests and checks run;
 - deployment, compatibility, and rollback notes;
-- known limitations or deferred work;
-- Prompt history: dated quotations of the user requests leading to the PR and
-  the applicable instructions followed. Redact secrets and personal data and
-  mark redactions rather than copying sensitive conversation content.
+- known limitations or deferred work.
 
 Use labels that match the actual change, including combinations such as:
 
@@ -164,10 +148,6 @@ intent-oriented history.
 
 ## Recommended repository protection
 
-In repository Pull Requests settings, enable only squash merging and enable
-automatic deletion of merged head branches. These are requirements to verify,
-not a claim that settings have already been applied.
-
 Configure a ruleset for `main` that:
 
 - requires a pull request before merging;
@@ -178,10 +158,6 @@ Configure a ruleset for `main` that:
 - requires linear history;
 - allows squash merge as the normal merge strategy;
 - deletes merged head branches automatically.
-
-Select required check names only after the corresponding CI jobs exist and
-have run. The course repository names `links`, `slides`, and Pages `build`
-are not present in Agent OS; see [the Chinese Git workflow](git-workflow.md).
 
 CI runners should not hold production credentials by default. Production
 deployment should use a separate protected environment, exact commit SHA,
