@@ -18,6 +18,8 @@ AgentOS product. Agno is cited only as an external completeness checklist.
 - [实施步骤与逐项验证计划（中文）](docs/plans/medical-agent-implementation.zh-CN.md)
 - [医疗 Agent 设计合理性与可行性评审（中文）](docs/reviews/medical-agent-design-feasibility.zh-CN.md)
 
+- [PR #5/#6 后续评估与小步修改建议（中文）](docs/reviews/medical-agent-followup.zh-CN.md)
+
 ## Contributing
 
 - [Trunk-based development workflow](docs/development-workflow.md)
