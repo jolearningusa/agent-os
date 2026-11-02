@@ -7,6 +7,11 @@ compares budget-aware workflows, context optimization, and local/cloud
 deployment. It is a November 1, 2026 proposal for review, not a replacement
 for the architecture recommendations below.
 
+The [medical-agent development proposal](../design/medical-agent.zh-CN.md)
+uses a project-owned harness for the synthetic medical experiment. Once
+accepted, that scoped design supersedes the initial shell recommendation for
+that experiment; the privacy and authorization boundaries still apply.
+
 ## Executive recommendation
 
 Start with **OpenClaw as the control plane and product shell**, but keep the

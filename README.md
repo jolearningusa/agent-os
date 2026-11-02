@@ -9,6 +9,11 @@ agent harnesses where they provide a strong foundation.
 - [Agent OS reference architecture and component model](docs/research/agent-os-reference-architecture.md)
 - [资源感知 Harness：三个产品方案（中文，待评审）](docs/research/resource-aware-harness-options.zh-CN.md)
 
+## Medical Agent development
+
+- [医疗 Agent 开发设计（中文，待评审）](docs/design/medical-agent.zh-CN.md)
+- [实施步骤与逐项验证计划（中文）](docs/plans/medical-agent-implementation.zh-CN.md)
+
 ## Contributing
 
 - [Trunk-based development workflow](docs/development-workflow.md)

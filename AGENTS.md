@@ -37,7 +37,8 @@ remain releasable.
 1. Fetch `origin/main` and fast-forward a clean local `main`.
 2. Create one short-lived branch from that verified revision, using
    `feature/*`, `fix/*`, `hotfix/*`, `refactor/*`, `test/*`, `docs/*`, or
-   `chore/*`.
+   `chore/*`. Use `course/*` or `content/*` for teaching-material tasks; honor
+   an explicitly assigned session branch name.
 3. Keep one cohesive product or engineering intent per branch and pull
    request. Split large work with compatible slices or feature flags.
 4. For behavior, contract, architecture, privacy, or persistent-data changes,
@@ -46,8 +47,10 @@ remain releasable.
    privacy, retry, and rollback paths relevant to the change.
 6. Run all repository checks locally before pushing. Do not skip, mute, or
    weaken checks to make a change pass.
-7. Rebase the branch on the latest `origin/main`, rerun affected checks, then
-   push and open a labeled Draft PR.
+7. Before every push, check whether the branch PR has already merged. Never
+   push onto merged history; restart remaining work on a fresh branch from
+   updated `main`. Fetch and rebase on latest `origin/main`, rerun affected
+   checks, then push and open a labeled Draft PR using the repository template.
 8. Resolve review conversations and CI failures. Mark the PR ready only after
    required checks are green.
 9. Squash-merge only with current user authorization. Never push or
@@ -65,6 +68,8 @@ independent and the user explicitly requests parallel delivery.
   impact, tests run, operational impact, and rollback notes.
 - Apply labels matching the content, such as `enhancement`, `bug`,
   `documentation`, `security`, `privacy`, and the implementation language.
+- Include dated user requests and followed instructions in Prompt history;
+  omit secrets and personal data, marking any necessary redaction.
 - Keep commits focused and reviewable; the final integration method is squash
   merge.
 - Do not merge automatically unless the user explicitly authorizes it.
@@ -81,3 +86,9 @@ independent and the user explicitly requests parallel delivery.
 - Persistent changes include compatible migration and rollback plans.
 - Telemetry is content-free by default and does not expose secrets or PII.
 - The PR is focused, labeled, reviewable, and green in CI.
+
+## Concurrent sessions
+
+Each session owns its files. Do not overlap files changed by another open PR;
+wait for it to merge if ownership cannot be separated. Never stack dependent
+PRs. Only begin the next task after merge, main synchronization, and cleanup.
