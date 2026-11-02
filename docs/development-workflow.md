@@ -164,6 +164,10 @@ intent-oriented history.
 
 ## Recommended repository protection
 
+In repository Pull Requests settings, enable only squash merging and enable
+automatic deletion of merged head branches. These are requirements to verify,
+not a claim that settings have already been applied.
+
 Configure a ruleset for `main` that:
 
 - requires a pull request before merging;
@@ -174,6 +178,10 @@ Configure a ruleset for `main` that:
 - requires linear history;
 - allows squash merge as the normal merge strategy;
 - deletes merged head branches automatically.
+
+Select required check names only after the corresponding CI jobs exist and
+have run. The course repository names `links`, `slides`, and Pages `build`
+are not present in Agent OS; see [the Chinese Git workflow](git-workflow.md).
 
 CI runners should not hold production credentials by default. Production
 deployment should use a separate protected environment, exact commit SHA,
