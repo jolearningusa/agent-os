@@ -3,6 +3,9 @@
 Build and deploy a customizable agent operating system, adapting open-source
 agent harnesses where they provide a strong foundation.
 
+This repository's Agent OS is the project documented here. It is not Agno's
+AgentOS product. Agno is cited only as an external completeness checklist.
+
 ## Research and architecture
 
 - [Agent OS landscape and recommended architecture](docs/research/agent-os-landscape.md)
