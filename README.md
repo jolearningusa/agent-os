@@ -13,6 +13,7 @@ agent harnesses where they provide a strong foundation.
 
 - [医疗 Agent 开发设计（中文，待评审）](docs/design/medical-agent.zh-CN.md)
 - [实施步骤与逐项验证计划（中文）](docs/plans/medical-agent-implementation.zh-CN.md)
+- [医疗 Agent 设计合理性与可行性评审（中文）](docs/reviews/medical-agent-design-feasibility.zh-CN.md)
 
 ## Contributing
 
