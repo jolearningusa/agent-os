@@ -155,10 +155,18 @@ gh pr create --repo jolearningusa/agent-os --base main --head docs/describe-curr
 解决后再 ready。仓库无 CI 时如实说明“未配置”，不能说“CI 绿灯”。
 
 只有用户明确授权当次合并，才执行 squash merge；提交 PR 不等于授权合并。
-确认合并后核实远端分支已自动删除，没有自动删除时再手动处理。随后：
+确认合并后核实远端分支已自动删除。若仍存在，按
+[远端分支清理规则](git-workflow.md#清理已合并的远端分支) 核对 PR、远端 SHA
+及开放 PR。通过核对后，可在该已合并 PR 页面使用 **Delete branch**。随后同步
+本地并清理已失效的远端跟踪引用：
 
 ```sh
-git fetch origin main
+git fetch --prune origin
+```
+
+然后更新本地 `main` 并删除本地主题分支：
+
+```sh
 git switch main
 git merge --ff-only origin/main
 git branch -d docs/describe-current-task
