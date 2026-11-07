@@ -12,7 +12,7 @@ release 分支。本页与 [开发工作流](development-workflow.md) 及
    `refactor/*`、`test/*`、`docs/*` 或 `chore/*`。明确指定分支名的 agent 会话
    使用指定名称。
 2. 分支尽量在一至两个工作日内合并。大任务拆成兼容的小 PR 或使用显式功能开关；
-   一次一个意图，设计变更先于实现。
+   一次一个意图，设计变更先于实现。这个时限是交付目标，超时不会触发删除。
 3. 每次 push 前确认该分支 PR 状态。若已经合并，不在合并历史上继续提交或推送；
    保存未交付工作，从更新后的 `main` 建立新的短期分支，只迁移剩余变更。
    若未合并，fetch 最新 `origin/main` 并 rebase，运行所有相关本地检查。
@@ -30,6 +30,15 @@ release 分支。本页与 [开发工作流](development-workflow.md) 及
 
 **多个会话并行**：每个会话只改自己负责的文件，不修改另一个未合并 PR 占用的
 文件。无法避免冲突时，等该 PR 合并后再 rebase。
+
+## 清理已合并的远端分支
+
+合并后自动删除只处理触发该次合并的 PR 分支。启用设置后，历史遗留分支仍需逐个核对。
+清理前确认 PR 已合并到 `main`，且远端分支当前 SHA 与该 PR 合并时的 head SHA
+一致。squash merge 会生成新提交，因此以 PR 记录为准。分支上有后续提交、仍被开放
+PR 使用，或找不到对应合并记录时，保留分支并核实归属。禁止删除 `main`。
+
+操作步骤和本地清理命令见 [仓库使用手册](repository-manual.zh-CN.md#评审合并与清理)。
 
 ## 本地检查与当前仓库状态
 
@@ -49,7 +58,7 @@ release 分支。本页与 [开发工作流](development-workflow.md) 及
 在 `Settings → General → Pull Requests`：
 
 - 只启用 **Allow squash merging**，关闭 merge commit 和 rebase merging。
-- 勾选 **Automatically delete head branches**。
+- 勾选 **Automatically delete head branches**，在 PR 合并后删除远端 head 分支。
 
 在 `Settings → Rules → Rulesets` 为 `main` 配置：
 
@@ -62,3 +71,14 @@ release 分支。本页与 [开发工作流](development-workflow.md) 及
 
 仓库规则集的适用计划/权限、现有必需检查和自动删除状态，需在设置执行时读取
 确认。设置变更属于独立的管理操作，不能把本页文字当成设置已经生效的证据。
+
+2026-11-07 通过 GitHub API 核验：`delete_branch_on_merge` 为 `false`，squash、
+merge commit 和 rebase 三种合并方式均已开启。拥有仓库管理权限的维护者可在上述
+设置中应用目标配置，再用以下只读命令复核：
+
+```sh
+gh api repos/jolearningusa/agent-os --jq '{delete_branch_on_merge, allow_squash_merge, allow_merge_commit, allow_rebase_merge}'
+```
+
+目标值依次为 `true`、`true`、`false`、`false`。Ruleset 的生效状态须在
+`Settings → Rules → Rulesets` 单独核验。
