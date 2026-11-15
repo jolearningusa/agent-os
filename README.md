@@ -18,6 +18,7 @@ AgentOS product. Agno is cited only as an external completeness checklist.
 - [PR #10 评审与改进建议（中文，待评审）](docs/reviews/local-harness-deliveries-review.zh-CN.md)
 
 - [L0a 决策与平台验证 ADR](docs/adr/0001-hermes-local-lab.zh-CN.md)
+- [PR #15 L0a 产出检查报告（中文，待评审）](docs/reviews/pr15-l0a-verification.zh-CN.md)
 
 ## Medical Agent development
 
