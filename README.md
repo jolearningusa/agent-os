@@ -32,3 +32,4 @@ AgentOS product. Agno is cited only as an external completeness checklist.
 
 - [Trunk-based development workflow](docs/development-workflow.md)
 - [Repository instructions for coding agents](AGENTS.md)
+- [agent_1 / agent_2 分工与 agent_2 评审操作规范（中文，待评审）](docs/agent-collaboration.zh-CN.md)
