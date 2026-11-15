@@ -1,0 +1,14 @@
+{
+  "probe": "l0a-network-v1",
+  "platform": "Darwin",
+  "os_version": "14.4.1",
+  "architecture": "arm64",
+  "scope": "network-only; exact allowed localhost port; no Hermes/Ollama",
+  "results": {
+    "allowed_loopback": "connected",
+    "blocked_loopback": "denied",
+    "blocked_external": "denied",
+    "blocked_listener": "no_connection"
+  },
+  "status": "pass"
+}
