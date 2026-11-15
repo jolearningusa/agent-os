@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "upstream": "https://github.com/NousResearch/hermes-agent.git",
+  "fork": "https://github.com/jolearningusa/hermes-agent.git",
+  "commit": "557254faa24ef5d86f67595c4c64dc61644d0f68",
+  "license": "MIT",
+  "source_files_sha256": {
+    "LICENSE": "821556e6336796450ab852d375117b48a4887e71d255794fd6318d99982a5ab6",
+    "uv.lock": "e6d08c634c3f9a252a896135a9c30324776fa343ce68432e88d22f2968f257e2",
+    "package-lock.json": "ba681cd436db12d02a82f80c19de02d94e9cd7ca7c1672c4589b37e0ece522c7",
+    "pyproject.toml": "8c9de0a63a81281a24c721f45051fe9fcf8e09ac6ea4ed4ac95e3b96f049b5e3",
+    ".python-version": "a876e0b10411037a012498b9fe18d9bc1df32ed8b722a13564dc944ddcfd9135",
+    ".nvmrc": "20d2add851bf39edcc6b5e830930f962db7e19dffa2cab8610eed551eda6c302"
+  },
+  "upstream_runtime": {
+    "python": "3.14",
+    "node": "26"
+  },
+  "patches": [],
+  "model": {
+    "name": "qwen3.5:0.8b",
+    "manifest_sha256": "de63045f29755d4721c09d54c9b45c2dadb644f4fd7d604d4cac90d96049971c",
+    "context_length_tokens": 64000,
+    "max_output_tokens": 512
+  }
+}

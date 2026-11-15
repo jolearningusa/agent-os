@@ -1,7 +1,7 @@
 # Hermes Local Harness Lab 交付物与里程碑
 
 日期：2026-11-15。状态：PR #10、#12、#13 已合并，本文是实施基线草案；L0a 评审记录
-确认前不视为最终接受。L0a 决策与最小网络证据已成文待评审，后续功能里程碑未开始。
+确认前不视为最终接受。L0a 已由 PR #15 评审合并接受。L0b 配置契约已实现待评审，其他功能验收待执行。
 
 改进建议的处理与理由见 [最终修订决策](../reviews/hermes-plan-final-decisions.zh-CN.md)。
 
@@ -32,8 +32,8 @@ Hermes、Ollama 模型服务和查看器分别管理，项目自有配置与观�
 下列命令和路径为计划接口，随 L0 ADR 固定后落地。
 
 ```sh
-./scripts/harness doctor --config configs/local-hermes.yaml
-./scripts/harness up --config configs/local-hermes.yaml
+./scripts/harness doctor --config configs/local-hermes.json
+./scripts/harness up --config configs/local-hermes.json
 ./scripts/harness status
 ./scripts/harness down
 ```
@@ -286,9 +286,11 @@ L3 的 4–7 人日覆盖压缩关联、采集完整性、隔离与清理，不�
 
 ## 当前状态与待定项
 
-- [ ] L0a 决策与复现清单，已提交 [ADR 0001](../adr/0001-hermes-local-lab.zh-CN.md)
-  及平台 canary 证据，待 PR 评审接受。
+- [x] L0a 决策与复现清单，[ADR 0001](../adr/0001-hermes-local-lab.zh-CN.md)
+  及平台 canary 证据已由 PR #15 合并接受。
 - [ ] L0b 配置、检查与采集可行性探针。
+  配置契约切片对应 L00，见 [设计与运行方式](../design/local-harness-config.zh-CN.md)；
+  L02/L04/L05/L06 继续分独立 PR 交付。
 - [ ] L1 命令行启动与生命周期。
 - [ ] L2 Ollama 模型连接。
 - [ ] L3 每次调用的上下文采集。
