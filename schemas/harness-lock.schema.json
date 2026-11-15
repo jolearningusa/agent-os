@@ -1,0 +1,122 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "upstream": {
+      "const": "https://github.com/NousResearch/hermes-agent.git"
+    },
+    "fork": {
+      "const": "https://github.com/jolearningusa/hermes-agent.git"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "license": {
+      "const": "MIT"
+    },
+    "source_files_sha256": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "LICENSE": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "uv.lock": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "package-lock.json": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "pyproject.toml": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        ".python-version": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        ".nvmrc": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "LICENSE",
+        "uv.lock",
+        "package-lock.json",
+        "pyproject.toml",
+        ".python-version",
+        ".nvmrc"
+      ]
+    },
+    "upstream_runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "python": {
+          "const": "3.14"
+        },
+        "node": {
+          "const": "26"
+        }
+      },
+      "required": [
+        "python",
+        "node"
+      ]
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "manifest_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "context_length_tokens": {
+          "type": "integer",
+          "minimum": 64000,
+          "maximum": 64000
+        },
+        "max_output_tokens": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 512
+        }
+      },
+      "required": [
+        "name",
+        "manifest_sha256",
+        "context_length_tokens",
+        "max_output_tokens"
+      ]
+    },
+    "patches": {
+      "const": []
+    }
+  },
+  "required": [
+    "schema_version",
+    "upstream",
+    "fork",
+    "commit",
+    "license",
+    "source_files_sha256",
+    "upstream_runtime",
+    "model",
+    "patches"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Agent OS Hermes source lock v1"
+}
