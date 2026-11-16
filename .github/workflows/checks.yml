@@ -27,6 +27,8 @@ jobs:
         with:
           python-version: '3.13.0'
       - name: Install pinned check dependencies
-        run: python -m pip install --disable-pip-version-check --require-hashes --only-binary=:all: -r requirements-config.txt
+        run: |
+          python -m pip install --disable-pip-version-check --require-hashes --only-binary=:all: -r requirements-config.txt
       - name: Run make check
-        run: make check PYTHON=python
+        run: |
+          make check PYTHON=python
