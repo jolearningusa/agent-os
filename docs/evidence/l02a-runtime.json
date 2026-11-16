@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-16",
+  "scope": "L02a runtime preparation only",
+  "manifest": "configs/probe-runtime-macos-arm64.json",
+  "uv_version_verified": "0.13.8",
+  "check_exit_code": 0,
+  "audit": {
+    "expected_python": "3.14.10",
+    "mode": "installed-runtime",
+    "packages": 66,
+    "registry_only": true,
+    "result": "pass",
+    "source_clean": true,
+    "source_commit": "557254faa24ef5d86f67595c4c64dc61644d0f68",
+    "target_platform": {
+      "machine": "arm64",
+      "system": "Darwin"
+    },
+    "verified_source_hashes": 6
+  },
+  "agent_started": false,
+  "model_calls": 0,
+  "model_downloaded": false,
+  "ollama_downloaded": false,
+  "extras_installed": false,
+  "full_L02_passed": false,
+  "offline_frozen_sync_exit_code": 0
+}

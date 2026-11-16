@@ -1,0 +1,2 @@
+# L02a macOS arm64 only; install in the ignored bootstrap venv.
+uv==0.13.8 --hash=sha256:62b6943c7fd64fac6854f780bea6e0359e5a5bc3241f83ee357bb38276afac49
