@@ -34,3 +34,23 @@ python3 -m unittest discover -s tests -p 'test_check_docs.py' -v
 证明失败没有被忽略。无网络测试确认检查仅依赖本地文件。
 
 L06 本次交付脚本与正反例，L04 接入 make check 和 CI，并证明两处执行相同命令。
+
+## L04a 统一入口与 PR #24 反馈
+
+根目录 `make check` 顺序运行文档检查、配置/事件 CLI、完整 unittest 和 Python
+语法编译。默认 Python 来自既有校验 venv，可用 `make check PYTHON=python3` 覆盖。
+入口不安装依赖、不联网、不获取或运行 vendor 子模块。语法编译会产生被 Git 忽略的
+Python 缓存。CI 接入与远端失败/恢复证据在 L04b 单独交付。
+
+链接扫描屏蔽完整的行内反引号代码片段，保留换行供错误定位；验收编号引用仍检查
+行内代码。含空格的目标须使用尖括号或百分号编码。裸空格目标按 GitHub 的非链接
+文本处理，不作链接校验。CRLF 按 Python 文本读取归一化为 LF，CR 不单独算尾随空白，
+空格后接 CRLF 的尾随空白仍报错。
+
+自我改进记录中的“预防规则汇总”连续编号之间须无空行，其余章节的 Markdown
+列表保持原有规则。这个检查落实重复格式错误的预防要求。
+
+本次失败传播验证在临时副本中执行，复制 Makefile、scripts、configs、schemas、tests、
+harness.lock.json 和 L0a 源码清单，解释器显式指向已安装依赖的校验 venv。将临时
+README 写为带尾随空格的内容后，make check 返回 2；恢复合法 README 后返回 0。
+真实仓库文件保持原状。该验证证明本地入口失败传播，远端 CI 结果仍由 L04b 提供。
