@@ -53,8 +53,10 @@ remain releasable.
    checks, then push and open a labeled Draft PR using the repository template.
 8. Resolve review conversations and CI failures. Mark the PR ready only after
    required checks are green.
-9. Squash-merge only with current user authorization. Never push or
-   force-push directly to `main`, and never merge a failing PR.
+9. Squash-merge only with current user authorization, or under the standing
+   cross-agent review authorization in
+   `docs/agent-collaboration.zh-CN.md` (an agent never merges its own PR).
+   Never push or force-push directly to `main`, and never merge a failing PR.
 10. After merge, fast-forward local `main` and delete the merged topic branch.
 
 Do not open a second implementation PR for a later dependent task while the
