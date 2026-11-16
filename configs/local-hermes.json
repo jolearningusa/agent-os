@@ -3,7 +3,7 @@
   "harness": "hermes",
   "source_commit": "557254faa24ef5d86f67595c4c64dc61644d0f68",
   "inference": {
-    "mode": "mock",
+    "mode": "deliberate-ci-failure",
     "host": "127.0.0.1",
     "port": 18080,
     "api_path": "/v1",
