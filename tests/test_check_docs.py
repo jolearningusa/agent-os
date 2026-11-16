@@ -95,6 +95,14 @@ class DocumentCheckTests(unittest.TestCase):
             stream.write('\n[Real](missing.md)\n')
         self.assertTrue(any('target missing' in e for e in checker.check_docs(self.root)[0]))
 
+    def test_unmatched_code_ticks_cannot_cross_paragraphs(self):
+        for blank in ['\n\n', '\n \t\n']:
+            with self.subTest(blank=repr(blank)):
+                self.write('README.md', '# Example\n\nFirst ` marker.' + blank + '[Real](missing.md)' + blank + 'Last ` marker.\n')
+                self.assertTrue(any('target missing' in e for e in checker.check_docs(self.root)[0]))
+        self.write('README.md', '# Example\n\n`First line\n[sample](missing.md) last line`\n')
+        self.assertEqual(checker.check_docs(self.root)[0], [])
+
     def test_crlf_normalization_preserves_space_checks(self):
         path = self.root / 'README.md'
         path.write_bytes(b'# Valid\r\n')

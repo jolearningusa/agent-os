@@ -45,7 +45,7 @@ started 后没有 finished 的文档允许通过结构校验，命令显示 open
 ## 使用与验证
 
 校验工具最低支持版本为 CPython 3.13；当前 requirements-config.txt 的 wheel 哈希
-仅在 macOS arm64 / CPython 3.13 验证。后续运行时按 ADR 安装，旧解释器不在支持范围。
+包含 macOS arm64 与 CI 的 Linux x86_64 产物。后续运行时按 ADR 安装，旧解释器不在支持范围。
 沿用该校验工具环境：
 
 ```sh

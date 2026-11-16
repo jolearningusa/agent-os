@@ -104,7 +104,11 @@ def check_docs(root):
                 errors.append(f'{label}:{line}: undefined acceptance ID {match[0]}')
         if label == 'docs/agent-self-improvement.zh-CN.md':
             check_prevention_list(text, label, errors)
-        link_text = INLINE_CODE.sub(lambda match: re.sub(r'[^\n]', ' ', match[0]), text)
+        paragraphs = re.split(r'(\n[ \t]*\n)', text)
+        link_text = ''.join(
+            INLINE_CODE.sub(lambda match: re.sub(r'[^\n]', ' ', match[0]), paragraph)
+            for paragraph in paragraphs
+        )
         for pattern in (INLINE_LINK, REFERENCE_LINK):
             for match in pattern.finditer(link_text):
                 line = text.count('\n', 0, match.start()) + 1

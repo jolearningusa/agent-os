@@ -23,7 +23,7 @@ JSON 文件 `configs/local-hermes.json`，模式为 mock。模型连接只允许
 ## 校验入口与错误行为
 
 独立校验工具在 macOS arm64 / Python 3.13 验证，使用哈希锁定的 jsonschema 依赖。
-当前依赖清单包含该平台 wheel，其他平台新增 wheel 哈希须独立审核。Hermes 的 Python
+依赖清单包含该平台及 CI 的 Linux x86_64 wheel，新增平台哈希须独立审核。Hermes 的 Python
 3.14 要求由运行时步骤处理。命令依次检查锁文件 schema、L0a 证据一致性、配置
 schema 和跨文件约束，通过返回 0，失败返回 1 并显示字段路径。错误信息显示字段
 和失败规则，隐藏字段值，防止误填凭据进入日志。重复 JSON key、非标准 NaN/Infinity
