@@ -35,7 +35,9 @@ changes, update the design first and then implement it.
 Use trunk-based development. `main` is the only long-lived branch and must
 remain releasable.
 
-1. Fetch `origin/main` and fast-forward a clean local `main`.
+1. Fetch `origin/main` and fast-forward a clean local `main`. Before writing a
+   new PR, check open PRs; review and merge another agent's open PR first, per
+   `docs/agent-collaboration.zh-CN.md`.
 2. Create one short-lived branch from that verified revision, using
    `feature/*`, `fix/*`, `hotfix/*`, `refactor/*`, `test/*`, `docs/*`, or
    `chore/*`. Honor an explicitly assigned session branch name.
