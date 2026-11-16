@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "upstream": "https://github.com/deepseek-ai/deepseek-harness.git",
+  "fork": "https://github.com/jolearningusa/deepseek-harness.git",
+  "commit": "ce7073d51254c26cd63b22a60835b8f948deb447",
+  "branch": "master",
+  "license": "MIT",
+  "source_files_sha256": {
+    "LICENSE": "ebb4f09972aee8608be255debaf78451a68e95c290f55c240dec2ecfa16ea6be",
+    "package.json": "d0fd7a2084d455b1651815bfbf9034e8b7dfb6571513727bec5d6cbc175a0b45",
+    "pnpm-lock.yaml": "6dbb7b4d0117aa2a69d19e348cb22e2b46eba5b11af146ab24b7a2bcc3a9b86c",
+    "pnpm-workspace.yaml": "eb42731b8f509dd4ee3ae880eae1cde5381a1875a3598fd2fa83d1c1e5e1ef1a",
+    "tsconfig.json": "9eb420010dfd10daaa1a5374ce018fd691b1ba56a4bea60f2ebd8d548ffdffa4",
+    "tsconfig.base.json": "21dbb3f2ca848ed53b4d47a961f5c38a51e6e176b04589ca6a80236f4d738361",
+    "tsdown.config.ts": "f7bffe9b7a56f65da35fa3f536fc812d17b87660f1bb39886904a8474a3d15e4",
+    "Makefile": "31d3c908181c6034eb955aad3ba25b50d16d941924f767c6d1be6b46b8201a04",
+    "AGENTS.md": "fe6c542b0c8c041fb6de51d8c92b40caafe6d4b31711760de496f53fc41cc751",
+    "SAFETY.md": "62075bb51e0f7790441e7722ff12063107b4866019332e71ef01b63b6f880fee"
+  },
+  "upstream_runtime": {
+    "node": ">=24.9.0"
+  },
+  "patches": [],
+  "submodule_path": "vendor/dsh"
+}

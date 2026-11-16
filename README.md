@@ -34,6 +34,37 @@ python3 -m venv .local/harness-lab/config-check-env
 字段与失败行为见 [本地配置契约](docs/design/local-harness-config.zh-CN.md)。
 事件结构与离线校验见 [上下文事件契约](docs/design/local-harness-events.zh-CN.md)。
 
+## Vendor harnesses
+
+Agent OS references external harnesses as pinned, auditable sources. Each vendor
+harness is a replaceable adapter behind project-owned interfaces, not a public
+contract.
+
+### Hermes
+
+- Fork: `jolearningusa/hermes-agent` (pinned in `harness.lock.json`)
+- Role: experiential learning, skill lifecycle, scheduled tasks reference
+
+### DeepSeek Harness (DSH)
+
+- Fork: `jolearningusa/deepseek-harness` (pinned in `dsh.lock.json`)
+- Submodule: `vendor/dsh`
+- Role: call lifecycle, model streaming contract, and plugin architecture
+  reference for the capability plane
+- [DSH 子模块设计（中文，待评审）](docs/design/dsh-submodule.zh-CN.md)
+
+Clone with submodules:
+
+```sh
+git clone --recurse-submodules https://github.com/jolearningusa/agent-os.git
+```
+
+If already cloned without submodules:
+
+```sh
+git submodule update --init --recursive
+```
+
 ## Medical Agent development
 
 - [医疗 Agent 开发设计（中文，待评审）](docs/design/medical-agent.zh-CN.md)
