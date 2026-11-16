@@ -54,3 +54,25 @@ Python 缓存。CI 接入与远端失败/恢复证据在 L04b 单独交付。
 harness.lock.json 和 L0a 源码清单，解释器显式指向已安装依赖的校验 venv。将临时
 README 写为带尾随空格的内容后，make check 返回 2；恢复合法 README 后返回 0。
 真实仓库文件保持原状。该验证证明本地入口失败传播，远端 CI 结果仍由 L04b 提供。
+
+## L04b CI 接入
+
+行内代码配对限定在同一空行分隔段落，保持原始偏移，单段内多行代码仍支持。
+CI 使用 ubuntu-24.04 / CPython 3.13.0 和已固定 SHA 的官方 checkout/setup-python，
+只授予 contents: read，关闭凭据持久化和 submodule 获取；无秘密或部署环境输入。
+依赖安装是独立准备步骤，使用 --require-hashes 和二进制 wheel；之后运行
+`make check PYTHON=python`，与本地入口相同，检查本身保持离线。
+
+首次验证保持 PR 为 Draft，提交一次受控无效配置以确认门禁失败，恢复后再次运行。
+失败、恢复和最终 head 的 run 链接记录在 PR，只有最终 CI 通过后才 ready。
+本步骤不配置仓库 ruleset，检查成为 required status 需维护者另行授权。
+
+官方 Action 提交分别为 checkout v6 `d23441a48e516b6c34aea4fa41551a30e30af803` 和
+setup-python v6 `ece7cb06caefa5fff74198d8649806c4678c61a1`，由官方 API 解析确认。
+[checkout](https://github.com/actions/checkout)、[setup-python](https://github.com/actions/setup-python)
+
+Linux 的 rpds-py 2026.9.1 cp313 x86_64 manylinux wheel SHA-256 来自 PyPI 发布元数据，
+CI 安装时由 pip 核验；其余纯 Python wheel 复用现有哈希。[PyPI 元数据](https://pypi.org/pypi/rpds-py/2026.9.1/json)
+
+实测失败与恢复的 run、head、工作流及依赖哈希见 [CI 证据](../evidence/l04b-ci.json)。
+该文件记录观察到的两次运行；最终 PR head 在 ready 前还须独立检查其最新状态。
