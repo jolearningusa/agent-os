@@ -16,7 +16,8 @@ call ID，以及模型、Hermes commit、配置 hash 和调用状态。
 
 schema_version 固定 1。同版本允许未来增加可选字段，未知主版本拒绝；现有字段和枚举
 保持语义稳定，新增必填项或不兼容状态需要版本迁移。时间必须为 UTC Z 格式并通过
-实际日历校验，精度最多微秒。校验器显式注册日期检查，避免可选格式依赖缺失时静默跳过。字段错误仅显示规则和路径，不回显字段值。
+实际日历校验，精度最多微秒。校验器显式注册日期检查，避免可选格式依赖缺失时
+静默跳过。字段错误仅显示规则和路径，不回显字段值。
 
 ## 文档级约束
 
@@ -28,13 +29,24 @@ schema_version 固定 1。同版本允许未来增加可选字段，未知主版
 一致。父调用必须在同实例同 session 内先出现 started，不能引用自己。这个先出现
 约束同时阻止循环依赖。父调用可与子调用处于不同 turn，例如后续摘要关联原调用。
 
+时间戳是可调整的墙上时钟，sequence 提供事件先后顺序，latency_ms 由单调时钟测量。
+v1 校验日历格式，不比较两个 UTC 时间戳的大小，也不要求其差值等于 latency_ms，
+避免系统校时导致有效事件被拒绝。合成 fixture 的正常路径时间与延迟保持一致，
+另设时钟回拨正例。L3 采集器负责记录单调时钟来源并验证计时，L54 独立测量开销。
+
+latency_ms 只接受非负有限数值，不设置业务超时上限。执行器超时和计时器观察值
+可能因清理、调度而不同，不将异常大测量值静默裁剪；L3/L54 另行标记计时异常。
+解析阶段拒绝 NaN/Infinity 字面量及 1e309 等指数溢出，1e308 等有限值保持可读。
+
 started 后没有 finished 的文档允许通过结构校验，命令显示 open_attempts 数量，
 明确区分契约合法与采集完整。导出片段若缺少父调用或 started，当前版本拒绝并报告
 文档关系缺失，之后如需部分导出再定义专门格式。
 
 ## 使用与验证
 
-沿用 requirements-config.txt 的校验工具环境：
+校验工具最低支持版本为 CPython 3.13；当前 requirements-config.txt 的 wheel 哈希
+仅在 macOS arm64 / CPython 3.13 验证。后续运行时按 ADR 安装，旧解释器不在支持范围。
+沿用该校验工具环境：
 
 ```sh
 .local/harness-lab/config-check-env/bin/python scripts/check_context_events.py tests/fixtures/context-events.json

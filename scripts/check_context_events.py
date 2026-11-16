@@ -2,6 +2,7 @@
 """Validate offline Hermes call lifecycle events and their relationships."""
 
 import argparse
+import math
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -42,6 +43,9 @@ def validate_events(events):
     finished = set()
     for index, event in enumerate(events):
         label = f'events[{index}]'
+        latency = event.get('latency_ms')
+        if isinstance(latency, float) and not math.isfinite(latency):
+            errors.append(f'{label}.latency_ms: must be finite')
         instance = event['instance_id']
         call_key = (instance, event['call_id'])
         attempt_key = (*call_key, event['attempt_id'])

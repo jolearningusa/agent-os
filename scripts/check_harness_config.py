@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -27,11 +28,19 @@ def reject_constant(value):
     raise ValueError('non-standard JSON number')
 
 
+def finite_float(value):
+    number = float(value)
+    if not math.isfinite(number):
+        raise ValueError('non-finite JSON number')
+    return number
+
+
 def read_json(path):
     return json.loads(
         Path(path).read_text(encoding='utf-8'),
         object_pairs_hook=unique_object,
         parse_constant=reject_constant,
+        parse_float=finite_float,
     )
 
 

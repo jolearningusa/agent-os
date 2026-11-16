@@ -44,6 +44,25 @@ class EventContractTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0)
         self.assertIn('open_attempts=1', result.stdout)
 
+    def test_wall_clock_adjustments_do_not_change_sequence_order(self):
+        self.events[-1]['timestamp'] = '2020-01-01T00:00:00Z'
+        self.assertEqual(validate_events(self.events), ([], 0))
+
+    def test_only_finite_latency_numbers_are_readable(self):
+        for value in [float('inf'), float('-inf'), float('nan')]:
+            events = copy.deepcopy(self.events)
+            events[-1]['latency_ms'] = value
+            self.assertTrue(validate_events(events)[0])
+        text = json.dumps(self.events)
+        for value in ['1e309', '-1e309', 'NaN', 'Infinity', '-Infinity']:
+            with self.subTest(value=value):
+                result = self.run_cli(text.replace('"latency_ms": 30', f'"latency_ms": {value}'))
+                self.assertEqual(result.returncode, 1)
+                self.assertNotIn(value, result.stderr)
+                self.assertNotIn('Traceback', result.stderr)
+        result = self.run_cli(text.replace('"latency_ms": 30', '"latency_ms": 1e308'))
+        self.assertEqual(result.returncode, 0, result.stderr)
+
     def test_schema_failure_fixtures(self):
         cases = [
             ('schema_version', 2, 'schema_version'),
