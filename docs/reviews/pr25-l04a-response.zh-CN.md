@@ -42,3 +42,7 @@
 本地 make check 已通过，含 30 项测试。CI 在 Draft PR 中验证受控坏配置导致失败，
 恢复后再次验证；具体 run、head 与结果记录在 PR 和 CI 证据文件。最终 head 通过前
 保持 Draft，作者不合并自身 PR。无 Hermes/Ollama 运行，依赖安装仅用于校验工具。
+
+已观察到配置负例在实际 make check 处退出 2，恢复配置后完整 CI 通过（30 项测试）。
+首次 YAML 解析失败已修复并记录 E14，未计入门禁负例。证据见
+[CI 结果](../evidence/l04b-ci.json)，最终提交状态在 ready 前独立复核。

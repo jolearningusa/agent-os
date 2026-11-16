@@ -73,3 +73,6 @@ setup-python v6 `ece7cb06caefa5fff74198d8649806c4678c61a1`，由官方 API 解�
 
 Linux 的 rpds-py 2026.9.1 cp313 x86_64 manylinux wheel SHA-256 来自 PyPI 发布元数据，
 CI 安装时由 pip 核验；其余纯 Python wheel 复用现有哈希。[PyPI 元数据](https://pypi.org/pypi/rpds-py/2026.9.1/json)
+
+实测失败与恢复的 run、head、工作流及依赖哈希见 [CI 证据](../evidence/l04b-ci.json)。
+该文件记录观察到的两次运行；最终 PR head 在 ready 前还须独立检查其最新状态。
