@@ -3,3 +3,8 @@
 
 # Python validation tool caches.
 __pycache__/
+
+# DSH submodule local build artifacts (the submodule itself is tracked).
+vendor/dsh/node_modules/
+vendor/dsh/dist/
+vendor/dsh/.dsh/
