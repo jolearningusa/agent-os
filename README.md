@@ -33,6 +33,12 @@ python3 -m venv .local/harness-lab/config-check-env
 
 字段与失败行为见 [本地配置契约](docs/design/local-harness-config.zh-CN.md)。
 事件结构与离线校验见 [上下文事件契约](docs/design/local-harness-events.zh-CN.md)。
+文档检查使用标准库即可运行，行为与覆盖范围见 [文档检查契约](docs/design/document-checks.zh-CN.md)。
+
+```sh
+python3 scripts/check_docs.py
+python3 -m unittest discover -s tests -p 'test_check_docs.py' -v
+```
 
 ## Medical Agent development
 
