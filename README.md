@@ -32,6 +32,7 @@ python3 -m venv .local/harness-lab/config-check-env
 ```
 
 字段与失败行为见 [本地配置契约](docs/design/local-harness-config.zh-CN.md)。
+事件结构与离线校验见 [上下文事件契约](docs/design/local-harness-events.zh-CN.md)。
 
 ## Medical Agent development
 

@@ -1,7 +1,8 @@
 # Hermes Local Harness Lab 交付物与里程碑
 
 日期：2026-11-15。状态：PR #10、#12、#13 已合并，本文是实施基线草案；L0a 评审记录
-确认前不视为最终接受。L0a 已由 PR #15 评审合并接受。L0b 配置契约已实现待评审，其他功能验收待执行。
+确认前不视为最终接受。L0a 已由 PR #15 评审合并接受。L0b 配置契约已由 PR #17 合并，事件契约已实现待评审，
+其余功能验收待执行。
 
 改进建议的处理与理由见 [最终修订决策](../reviews/hermes-plan-final-decisions.zh-CN.md)。
 
@@ -289,8 +290,9 @@ L3 的 4–7 人日覆盖压缩关联、采集完整性、隔离与清理，不�
 - [x] L0a 决策与复现清单，[ADR 0001](../adr/0001-hermes-local-lab.zh-CN.md)
   及平台 canary 证据已由 PR #15 合并接受。
 - [ ] L0b 配置、检查与采集可行性探针。
-  配置契约切片对应 L00，见 [设计与运行方式](../design/local-harness-config.zh-CN.md)；
-  L02/L04/L05/L06 继续分独立 PR 交付。
+  L00 配置契约由 PR #17 合并，见 [设计与运行方式](../design/local-harness-config.zh-CN.md)。
+  L05 事件契约切片及合成正反例见 [事件契约](../design/local-harness-events.zh-CN.md)，
+  待本步骤 PR 评审；L02/L04/L06 继续分独立 PR 交付。
 - [ ] L1 命令行启动与生命周期。
 - [ ] L2 Ollama 模型连接。
 - [ ] L3 每次调用的上下文采集。

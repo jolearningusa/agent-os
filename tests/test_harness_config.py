@@ -113,7 +113,7 @@ class ConfigContractTests(unittest.TestCase):
                 self.assertIn(f'config.inference.{field}', result.stderr)
 
     def test_strict_json_and_invalid_root(self):
-        for text in ['{"harness":"hermes","harness":"other"}', '{"x": NaN}', '{', '[]']:
+        for text in ['{"harness":"hermes","harness":"other"}', '{"x": NaN}', '{', '[]', '{"x": 1e309}', '{"x": -1e309}']:
             with self.subTest(text=text):
                 result = self.run_cli(text)
                 self.assertEqual(result.returncode, 1)

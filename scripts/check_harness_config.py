@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -27,19 +28,27 @@ def reject_constant(value):
     raise ValueError('non-standard JSON number')
 
 
+def finite_float(value):
+    number = float(value)
+    if not math.isfinite(number):
+        raise ValueError('non-finite JSON number')
+    return number
+
+
 def read_json(path):
     return json.loads(
         Path(path).read_text(encoding='utf-8'),
         object_pairs_hook=unique_object,
         parse_constant=reject_constant,
+        parse_float=finite_float,
     )
 
 
-def schema_errors(value, schema_path, label):
+def schema_errors(value, schema_path, label, format_checker=None):
     schema = read_json(schema_path)
     Draft202012Validator.check_schema(schema)
     errors = []
-    for error in Draft202012Validator(schema).iter_errors(value):
+    for error in Draft202012Validator(schema, format_checker=format_checker).iter_errors(value):
         # Do not use error.message: it can echo user-provided credentials.
         parts = [str(part) for part in error.absolute_path]
         if error.validator == 'required':
