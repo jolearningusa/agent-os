@@ -19,6 +19,7 @@ AgentOS product. Agno is cited only as an external completeness checklist.
 
 - [L0a 决策与平台验证 ADR](docs/adr/0001-hermes-local-lab.zh-CN.md)
 - [PR #15 L0a 产出检查报告（中文，待评审）](docs/reviews/pr15-l0a-verification.zh-CN.md)
+- [PR #26 L04b 评审报告（中文，待评审）](docs/reviews/pr26-l04b-review.zh-CN.md)
 
 当前 L0b 配置契约可独立校验。本地平台为 macOS arm64 / Python 3.13，CI 目标为
 Ubuntu x86_64 / Python 3.13.0；两者 wheel 哈希均已固定。以下安装仅用于校验工具环境。
