@@ -1,0 +1,82 @@
+[
+  {
+    "schema_version": 1,
+    "event_id": "event-1",
+    "sequence": 1,
+    "timestamp": "2026-11-15T12:00:00Z",
+    "instance_id": "instance-a",
+    "session_id": "session-a",
+    "turn_id": "turn-1",
+    "call_id": "call-main",
+    "attempt_id": "attempt-1",
+    "parent_call_id": null,
+    "model": "fixture-hermes",
+    "harness_commit": "557254faa24ef5d86f67595c4c64dc61644d0f68",
+    "config_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "event_type": "call_started",
+    "status": "running"
+  },
+  {
+    "schema_version": 1,
+    "event_id": "event-2",
+    "sequence": 2,
+    "timestamp": "2026-11-15T12:00:00Z",
+    "instance_id": "instance-a",
+    "session_id": "session-a",
+    "turn_id": "turn-1",
+    "call_id": "call-summary",
+    "attempt_id": "attempt-1",
+    "parent_call_id": "call-main",
+    "model": "fixture-hermes",
+    "harness_commit": "557254faa24ef5d86f67595c4c64dc61644d0f68",
+    "config_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "event_type": "call_started",
+    "status": "running"
+  },
+  {
+    "schema_version": 1,
+    "event_id": "event-3",
+    "sequence": 3,
+    "timestamp": "2026-11-15T12:00:00Z",
+    "instance_id": "instance-a",
+    "session_id": "session-a",
+    "turn_id": "turn-1",
+    "call_id": "call-summary",
+    "attempt_id": "attempt-1",
+    "parent_call_id": "call-main",
+    "model": "fixture-hermes",
+    "harness_commit": "557254faa24ef5d86f67595c4c64dc61644d0f68",
+    "config_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "event_type": "call_finished",
+    "status": "completed",
+    "latency_ms": 10,
+    "finish_reason": "stop",
+    "usage": {
+      "input_tokens": 10,
+      "output_tokens": null
+    }
+  },
+  {
+    "schema_version": 1,
+    "event_id": "event-4",
+    "sequence": 4,
+    "timestamp": "2026-11-15T12:00:00Z",
+    "instance_id": "instance-a",
+    "session_id": "session-a",
+    "turn_id": "turn-1",
+    "call_id": "call-main",
+    "attempt_id": "attempt-1",
+    "parent_call_id": null,
+    "model": "fixture-hermes",
+    "harness_commit": "557254faa24ef5d86f67595c4c64dc61644d0f68",
+    "config_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "event_type": "call_finished",
+    "status": "completed",
+    "latency_ms": 10,
+    "finish_reason": "stop",
+    "usage": {
+      "input_tokens": 10,
+      "output_tokens": null
+    }
+  }
+]

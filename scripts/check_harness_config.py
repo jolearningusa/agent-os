@@ -35,11 +35,11 @@ def read_json(path):
     )
 
 
-def schema_errors(value, schema_path, label):
+def schema_errors(value, schema_path, label, format_checker=None):
     schema = read_json(schema_path)
     Draft202012Validator.check_schema(schema)
     errors = []
-    for error in Draft202012Validator(schema).iter_errors(value):
+    for error in Draft202012Validator(schema, format_checker=format_checker).iter_errors(value):
         # Do not use error.message: it can echo user-provided credentials.
         parts = [str(part) for part in error.absolute_path]
         if error.validator == 'required':
