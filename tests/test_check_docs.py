@@ -88,6 +88,27 @@ class DocumentCheckTests(unittest.TestCase):
             self.assertTrue(any('document leaves repository' in e for e in errors))
             self.assertTrue(any('link leaves repository' in e for e in errors))
 
+    def test_inline_code_examples_do_not_hide_real_links(self):
+        self.write('README.md', '# Examples\n\n`[sample](missing.md)`\n\n``[sample](also-missing.md) with `ticks` ``\n')
+        self.assertEqual(checker.check_docs(self.root)[0], [])
+        with (self.root / 'README.md').open('a') as stream:
+            stream.write('\n[Real](missing.md)\n')
+        self.assertTrue(any('target missing' in e for e in checker.check_docs(self.root)[0]))
+
+    def test_crlf_normalization_preserves_space_checks(self):
+        path = self.root / 'README.md'
+        path.write_bytes(b'# Valid\r\n')
+        self.assertEqual(checker.check_docs(self.root)[0], [])
+        path.write_bytes(b'# Invalid  \r\n')
+        self.assertTrue(any('trailing whitespace' in e for e in checker.check_docs(self.root)[0]))
+
+    def test_prevention_rules_require_compact_numbering(self):
+        name = 'docs/agent-self-improvement.zh-CN.md'
+        self.write(name, '# Log\n\n## 预防规则汇总\n\n1. First.\n\n2. Second.\n')
+        self.assertTrue(any('blank line between prevention rules' in e for e in checker.check_docs(self.root)[0]))
+        self.write(name, '# Log\n\n## 预防规则汇总\n\n1. First.\n2. Second.\n\n## Other\n\n1. First.\n\n2. Second.\n')
+        self.assertEqual(checker.check_docs(self.root)[0], [])
+
     def test_unreadable_utf8_and_empty_scope_fail(self):
         (self.root / 'README.md').write_bytes(b'\xff')
         result = self.run_cli()

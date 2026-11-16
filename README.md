@@ -31,6 +31,8 @@ python3 -m venv .local/harness-lab/config-check-env
 .local/harness-lab/config-check-env/bin/python -m unittest discover -s tests -v
 ```
 
+依赖准备后，统一本地检查入口为 `make check`，命令内容见 [文档检查契约](docs/design/document-checks.zh-CN.md)。
+
 字段与失败行为见 [本地配置契约](docs/design/local-harness-config.zh-CN.md)。
 事件结构与离线校验见 [上下文事件契约](docs/design/local-harness-events.zh-CN.md)。
 
