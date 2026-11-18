@@ -2,6 +2,8 @@
 
 import hashlib
 import importlib.util
+import os
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -63,6 +65,41 @@ class ProbeRuntimeTests(unittest.TestCase):
                     self.assertEqual(bool(checker.audit_source(source, lock)), fails)
             (source / 'uv.lock').write_bytes(b'changed')
             self.assertTrue(checker.audit_source(source, lock))
+
+    def test_real_git_rejects_ignored_and_hidden_untracked_files(self):
+        with tempfile.TemporaryDirectory() as folder:
+            source = Path(folder)
+            # No remote, global config, template hooks or user signing setup.
+            env = {'PATH': os.environ['PATH'], 'GIT_CONFIG_NOSYSTEM': '1',
+                   'GIT_CONFIG_GLOBAL': os.devnull}
+
+            def git(*args):
+                return subprocess.check_output(
+                    ['git', '-C', folder, *args], env=env, text=True,
+                    stderr=subprocess.DEVNULL, timeout=10).strip()
+
+            git('init', '-q', '--template=')
+            (source / '.gitignore').write_text('*.pyc\nignored.py\nhidden/\n')
+            (source / 'uv.lock').write_bytes(b'locked')
+            git('add', '.gitignore', 'uv.lock')
+            git('-c', 'user.name=Harness Fixture', '-c', 'user.email=fixture@example.invalid',
+                '-c', 'commit.gpgsign=false', '-c', 'core.hooksPath=/dev/null',
+                'commit', '-qm', 'synthetic fixture')
+            git('config', 'status.showUntrackedFiles', 'no')
+            lock = {'commit': git('rev-parse', 'HEAD'), 'source_files_sha256': {
+                'uv.lock': hashlib.sha256(b'locked').hexdigest()}}
+            self.assertEqual(checker.audit_source(source, lock), [])
+            for name in ['ignored.pyc', 'ignored.py', 'hidden/extra.pth', 'untracked.py']:
+                with self.subTest(name=name):
+                    path = source / name
+                    path.parent.mkdir(exist_ok=True)
+                    path.write_bytes(b'synthetic fixture; never executed')
+                    self.assertTrue(checker.audit_source(source, lock))
+                    self.assertTrue(path.exists(), 'auditor must not delete files')
+                    path.unlink()
+                    if path.parent != source:
+                        path.parent.rmdir()
+                    self.assertEqual(checker.audit_source(source, lock), [])
 
 
 if __name__ == '__main__':

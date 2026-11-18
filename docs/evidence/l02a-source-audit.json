@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-17",
+  "scope": "L02a source audit hardening; not L02b execution",
+  "baseline_main": "927d1eb2d9ff9a8c9f2dac9c77d268aa337595b8",
+  "checker_sha256": "70d584e804c2dcfe334c5288c8bff553cbf80eb997a624e01c3d4d2d36fe3b6c",
+  "status_flags": [
+    "--porcelain",
+    "--untracked-files=all",
+    "--ignored"
+  ],
+  "check_exit_code": 0,
+  "audit": {
+    "expected_python": "3.14.10",
+    "mode": "installed-runtime",
+    "packages": 66,
+    "registry_only": true,
+    "result": "pass",
+    "source_clean": true,
+    "source_commit": "557254faa24ef5d86f67595c4c64dc61644d0f68",
+    "target_platform": {
+      "machine": "arm64",
+      "system": "Darwin"
+    },
+    "verified_source_hashes": 6
+  },
+  "regression": {
+    "before_fix": {
+      "exit_code": 1,
+      "tests": 7,
+      "failing_subtests": 4
+    },
+    "after_fix": {
+      "exit_code": 0,
+      "tests": 7,
+      "failing_subtests": 0
+    }
+  },
+  "agent_started": false,
+  "full_L02_passed": false,
+  "installed_file_integrity_verified": false
+}
