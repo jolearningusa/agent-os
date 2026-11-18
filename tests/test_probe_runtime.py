@@ -59,8 +59,8 @@ class ProbeRuntimeTests(unittest.TestCase):
             (source / 'uv.lock').write_bytes(b'locked')
             lock = {'commit': 'fixed', 'source_files_sha256': {
                 'uv.lock': hashlib.sha256(b'locked').hexdigest()}}
-            for outputs, fails in [(['fixed', ''], False), (['other'], True),
-                                   (['fixed', ' M tracked'], True)]:
+            for outputs, fails in [(['fixed', 'H uv.lock\0', ''], False), (['other'], True),
+                                   (['fixed', 'H uv.lock\0', ' M tracked'], True)]:
                 with patch.object(checker.subprocess, 'check_output', side_effect=outputs):
                     self.assertEqual(bool(checker.audit_source(source, lock)), fails)
             (source / 'uv.lock').write_bytes(b'changed')
@@ -81,7 +81,8 @@ class ProbeRuntimeTests(unittest.TestCase):
             git('init', '-q', '--template=')
             (source / '.gitignore').write_text('*.pyc\nignored.py\nhidden/\n')
             (source / 'uv.lock').write_bytes(b'locked')
-            git('add', '.gitignore', 'uv.lock')
+            (source / 'tracked.py').write_bytes(b'original')
+            git('add', '.gitignore', 'uv.lock', 'tracked.py')
             git('-c', 'user.name=Harness Fixture', '-c', 'user.email=fixture@example.invalid',
                 '-c', 'commit.gpgsign=false', '-c', 'core.hooksPath=/dev/null',
                 'commit', '-qm', 'synthetic fixture')
@@ -99,6 +100,19 @@ class ProbeRuntimeTests(unittest.TestCase):
                     path.unlink()
                     if path.parent != source:
                         path.parent.rmdir()
+                    self.assertEqual(checker.audit_source(source, lock), [])
+            for flags in [('--assume-unchanged',), ('--skip-worktree',),
+                          ('--assume-unchanged', '--skip-worktree')]:
+                with self.subTest(flags=flags):
+                    for flag in flags:
+                        git('update-index', flag, 'tracked.py')
+                    (source / 'tracked.py').write_bytes(b'changed; never executed')
+                    self.assertEqual(git('status', '--porcelain'), '')
+                    self.assertTrue(checker.audit_source(source, lock))
+                    self.assertEqual((source / 'tracked.py').read_bytes(), b'changed; never executed')
+                    for flag in ['--no-assume-unchanged', '--no-skip-worktree']:
+                        git('update-index', flag, 'tracked.py')
+                    (source / 'tracked.py').write_bytes(b'original')
                     self.assertEqual(checker.audit_source(source, lock), [])
 
 
