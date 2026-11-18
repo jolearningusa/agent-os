@@ -58,7 +58,8 @@ def audit_source(source, lock):
         return subprocess.check_output(
             ['git', '-c', 'core.fsmonitor=false', '-C', str(source), *args],
             text=True, stderr=subprocess.DEVNULL, timeout=10).strip()
-    if git('rev-parse', 'HEAD') != lock['commit'] or git('status', '--porcelain'):
+    if git('rev-parse', 'HEAD') != lock['commit'] or git(
+            'status', '--porcelain', '--untracked-files=all', '--ignored'):
         return ['source commit differs or source worktree is dirty']
     return []
 

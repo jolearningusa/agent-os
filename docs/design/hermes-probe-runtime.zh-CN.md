@@ -11,7 +11,9 @@
   wheel、Python 3.14.10（python-build-standalone 20261110）的精确 URL/SHA-256，
   以及此次审核的 66 个核心包版本。Python 由固定 uv 的内置元数据校验下载哈希。
 - uv wheel 哈希来自 [PyPI 版本元数据](https://pypi.org/pypi/uv/0.13.8/json)；Python
-  哈希核对 [该 uv 版本的下载元数据](https://github.com/astral-sh/uv/blob/0.13.8/crates/uv-python-managed/download-metadata.json)。
+  哈希核对 [该 uv 版本的下载元数据](https://github.com/astral-sh/uv/blob/0.13.8/crates/uv-python-managed/download-metadata.json)；
+  2026-11-17 再核对 [官方 release 资产](https://github.com/astral-sh/python-build-standalone/releases/tag/20261110)
+  的 digest，同为 `f15ec3d15460dd66c2eb88639b152cd9040e7d1ece11e38bf89e8f53f0171e02`。
 - 源码使用 [harness.lock.json](../../harness.lock.json) 的 fork/commit 和六个文件哈希。
   不初始化其他 submodule。此处没有 fork 补丁，不安装 Node/UI 或语音依赖。
 
@@ -80,7 +82,7 @@ probe_uv sync --project .local/harness-lab/probe/source --python 3.14.10 \
 ```
 
 ```sh
-python3 -I scripts/check_probe_runtime.py \
+python3 -I -B scripts/check_probe_runtime.py \
   --resolution-log .local/harness-lab/probe/sync-dry-run.log
 ```
 
@@ -98,18 +100,23 @@ probe_uv sync --project .local/harness-lab/probe/source --python 3.14.10 \
    只读 distribution metadata、源码与锁文件，并用 Git 查询提交/工作区状态。
 
 ```sh
-.local/harness-lab/probe/venv/bin/python -I scripts/check_probe_runtime.py
+.local/harness-lab/probe/venv/bin/python -I -B scripts/check_probe_runtime.py
 make check
 ```
 
 预期 `mode=installed-runtime`、`result=pass`、66 个包、6 个文件哈希通过、源码干净，
-Python/平台匹配清单。缺包、多包、版本漂移、重复 distribution、Git/直链来源、错误
-Python/平台、文件哈希变化、脏源码或错误 commit 均失败。CI 只跑无下载的回归测试，
+Python/平台匹配清单。源码干净要求显式检查 `--untracked-files=all --ignored`，
+拒绝任何额外文件，包括被忽略的文件；不自动删除或信任这些文件。后续 Hermes 导入也
+必须使用 `-B`（`-I` 会忽略 PYTHONDONTWRITEBYTECODE 等环境变量），避免生成字节码。
+缺包、多包、版本漂移、重复 distribution、Git/直链来源、错误 Python/平台、文件哈希
+变化、脏源码或错误 commit 均失败。CI 只跑无下载的回归测试，
 不要求 Linux CI 安装这个 macOS 运行时。
 
 ## 本次证据、限制与回滚
 
-[运行证据](../evidence/l02a-runtime.json) 记录 2026-11-16 本机安装后复核结果。
+[运行证据](../evidence/l02a-runtime.json) 记录 2026-11-16 本机安装后复核结果；
+2026-11-17 加强源码检查的结果另存 [源码复核证据](../evidence/l02a-source-audit.json)，
+不覆盖历史证据。
 bootstrap uv 版本核对为 0.13.8；managed Python 3.14.10；66 个包匹配清单且来自
 锁文件中唯一的 PyPI 项，六个源码哈希及干净 commit 匹配；随后离线 frozen sync
 退出 0（Checked 66 packages），只读检查再次通过。原始安装日志留在忽略目录，
@@ -117,7 +124,10 @@ bootstrap uv 版本核对为 0.13.8；managed Python 3.14.10；66 个包匹配�
 文件，也不构成依赖漏洞审计或全文件系统隔离证明。
 
 本次未下载模型、Ollama 或 extras，未启动 Agent、未发生模型调用。L02 尚未通过；
-L02b 仍需本地 mock、工具循环、组装来源与 wire request 逐字段匹配、强制摘要辅助
+L02b 首次启动前，须新增锁定 wheel 与已安装内容的完整性验证，或从重新校验哈希的
+wheel 新建受控依赖环境；当前包名/版本检查不能发现同版本文件篡改，不能作为该门禁。
+此门禁完成前不得把依赖环境当作可信执行基线。L02b 仍需本地 mock、工具循环、
+组装来源与 wire request 逐字段匹配、强制摘要辅助
 调用及实际沙箱验证。未验证 8 GiB 上真实模型性能，不进入 L1。
 
 无共享存储迁移。回滚仅在确认无运行进程后删除本实验拥有的 probe 目录；不得删除
