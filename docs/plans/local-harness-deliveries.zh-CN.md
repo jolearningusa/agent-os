@@ -297,7 +297,9 @@ L3 的 4–7 人日覆盖压缩关联、采集完整性、隔离与清理，不�
   [CI 证据](../evidence/l04b-ci.json)，PR #26/#27 已合并接受，L04/L06 关闭。
   L02 分为 L02a [独立运行时准备](../design/hermes-probe-runtime.zh-CN.md)和 L02b
   mock 采集探针两部分：L02a 已由 PR #28/#29 合并接受；源码忽略文件检查的
-  [评审响应](../reviews/pr28-l02a-response.zh-CN.md)及修订单独评审，L02b 尚未执行。
+  [评审响应](../reviews/pr28-l02a-response.zh-CN.md)及修订已由 PR #30 接受。
+  L02b [执行前预检](../design/hermes-probe-preflight.zh-CN.md)的新依赖环境重建与 index
+  防护本机通过待评审；实际 mock 采集尚未执行。
   两个切片沿用同一 L02 验收 ID；仅 L02b 完整通过才关闭 L02，L0b 整体仍未完成。
 - [ ] L1 命令行启动与生命周期。
 - [ ] L2 Ollama 模型连接。

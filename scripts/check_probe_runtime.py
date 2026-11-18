@@ -58,8 +58,12 @@ def audit_source(source, lock):
         return subprocess.check_output(
             ['git', '-c', 'core.fsmonitor=false', '-C', str(source), *args],
             text=True, stderr=subprocess.DEVNULL, timeout=10).strip()
-    if git('rev-parse', 'HEAD') != lock['commit'] or git(
-            'status', '--porcelain', '--untracked-files=all', '--ignored'):
+    if git('rev-parse', 'HEAD') != lock['commit']:
+        return ['source commit differs or source worktree is dirty']
+    entries = git('ls-files', '-v', '-z').split('\0')
+    if any(entry and (entry[0].islower() or entry[0] == 'S') for entry in entries):
+        return ['source index flags can hide tracked modifications']
+    if git('status', '--porcelain', '--untracked-files=all', '--ignored'):
         return ['source commit differs or source worktree is dirty']
     return []
 
